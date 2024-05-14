@@ -1,4 +1,3 @@
-import { skip } from 'node:test'
 import { describe, expect, it } from 'vitest'
 import { api, isSuccess, setApiConfig } from '../../src'
 import { config } from '../config'
