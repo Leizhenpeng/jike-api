@@ -1,0 +1,88 @@
+{
+  "name": "jike-api",
+  "version": "0.27.0",
+  "description": "Jike api for browser - compatible with browser plugins",
+  "type": "module",
+  "keywords": [
+    "jike",
+    "sdk"
+  ],
+  "license": "AGPL-3.0",
+  "homepage": "https://github.com/leizhenpeng/jike-api#readme",
+  "bugs": {
+    "url": "https://github.com/leizhenpeng/jike-api/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leizhenpeng/jike-api.git"
+  },
+  "author": "River <laolei@forkway.cn>",
+  "files": [
+    "*.d.ts",
+    "dist"
+  ],
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.js"
+    },
+    "./*": "./*"
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "./dist/*",
+        "./*"
+      ]
+    }
+  },
+  "sideEffects": false,
+  "scripts": {
+    "dev": "tsx playground/main.ts",
+    "build": "tsup && pnpm run build:types",
+    "build:types": "tsc --emitDeclarationOnly --declaration",
+    "docs:build": "typedoc",
+    "docs:preview": "serve docs",
+    "lint": "eslint --cache .",
+    "lint:fix": "pnpm run lint --fix",
+    "format": "prettier --cache --write .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest",
+    "test:deno": "cd tests/deno && deno run --allow-net --import-map=import_map.json --allow-env index.ts",
+    "release": "bumpp && pnpm publish",
+    "prepublishOnly": "pnpm run build"
+  },
+  "dependencies": {
+    "eventemitter3": "^5.0.1",
+    "ky": "^1.2.0"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^8.4.1",
+    "@sxzz/eslint-config": "^3.7.6",
+    "@sxzz/prettier-config": "^2.0.0",
+    "@types/md5": "^2.3.5",
+    "@types/node": "^20.11.17",
+    "@vitest/ui": "^1.2.2",
+    "bumpp": "^9.3.0",
+    "esbuild": "^0.20.0",
+    "eslint": "^8.56.0",
+    "eslint-define-config": "^1.24.1",
+    "md5": "^2.3.0",
+    "rollup": "^4.10.0",
+    "serve": "^14.2.1",
+    "sharp": "^0.33.2",
+    "tsup": "^8.0.1",
+    "tsx": "^4.7.1",
+    "typedoc": "^0.25.8",
+    "typescript": "^5.3.3",
+    "vitest": "^1.2.2"
+  },
+  "engines": {
+    "node": ">=18.12.0"
+  },
+  "prettier": "@sxzz/prettier-config"
+}
