@@ -1,28 +1,6 @@
 {
-  "version": 2,
-  "name": "jike-api",
-  "builds": [
-    {
-      "src": "package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "docs"
-      }
-    }
-  ],
-  "scripts": {
-    "build": "typedoc",
-    "serve": "serve docs"
-  },
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "/docs/$1",
-      "headers": {
-        "cache-control": "max-age=0",
-        "s-maxage": "86400",
-        "stale-while-revalidate": "43200"
-      }
-    }
-  ]
+  "buildCommand": "typedoc",
+  "devCommand": "serve docs",
+  "outputDirectory": "docs",
+  "cleanUrls": true
 }
