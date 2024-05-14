@@ -92,7 +92,7 @@ export const resolveKyOptions = (): Options => {
       statusCodes: [401],
       methods: ['get', 'post', 'put', 'head', 'delete', 'options', 'trace'],
     },
-    fetch,
+    fetch: window.fetch.bind(window),
     hooks: {
       beforeRequest: [
         (req, opt) => {
