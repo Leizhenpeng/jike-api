@@ -163,16 +163,17 @@ import { ApiClient, api, setAccessToken, setApiConfig } from 'jike-sdk'
 // 自行在 GitHub 搜索「jike endpoint」探索配置
 const apiConfig = {
   endpointId: 'jike',
-  endpointUrl: '<jike-endpoint-url>', // 请自行替换
-  bundleId: '<bundle-id>', // 请自行替换
-  buildNo: '<build-no>', // 请自行替换
-  userAgent: '<jike-sdk-user-agent>', // 请自行替换
+  endpointUrl: 'https://api.ruguoapp.com/',
+  bundleId: 'com.ruguoapp.jike',
+  buildNo: '2961',
+  appVersion: '7.56.2',
+  userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 15_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 Jike/7.56.2 /sa-sdk-ios/sensors-verify/tr.ruguoapp.com?jike',
   accessToken: '<access-token>', // 请自行替换
 }
 setApiConfig(apiConfig)
 
 setAccessToken('update-access-token')
-api.userRelation.getFollowingList('82D23B32-CF36-4C59-AD6F-D05E3552CBF3', {
+api.userRelation.getFollowingList('29910575-F12D-4E48-9DDE-B25FE55D1F94', {
   limit: 100,
 })
 
