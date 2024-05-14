@@ -1,4 +1,4 @@
-# jike-sdk Ⓙ Jike SDK
+# jike-api
 
 [![Unit Test](https://github.com/leizhenpeng/jike-api/actions/workflows/unit-test.yml/badge.svg)](https://github.com/leizhenpeng/jike-api/actions/workflows/unit-test.yml)
 [![GitHub](https://img.shields.io/github/license/leizhenpeng/jike-api)](https://github.com/leizhenpeng/jike-api)
