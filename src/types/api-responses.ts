@@ -272,3 +272,15 @@ export namespace Topics {
     }
   }
 }
+export interface SearchResponse<T> {
+  data: T[]
+  count: number
+  loadMoreKey?: {
+    skip: number
+  }
+  highlightWord: {
+    words: string[]
+    singleMaxHighlightTime: number
+    totalMaxHighlightTime: number
+  }
+}

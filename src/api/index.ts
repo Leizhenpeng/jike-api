@@ -9,6 +9,7 @@ import * as upload from './upload'
 import * as stories from './stories'
 import * as mediaMeta from './media-meta'
 import * as topics from './topics'
+import * as search from './search'
 
 /**
  * API
@@ -35,6 +36,7 @@ export const api = {
   stories,
   mediaMeta,
   topics,
+  search,
 }
 /**
  * API 集合
