@@ -1,5 +1,5 @@
 import { request, toResponse } from '../request'
-import type { LoadMoreKey, OriginalPost } from '../types/entity'
+import type { LoadMoreKey, MediaMeta, OriginalPost } from '../types/entity'
 import type {
   CreatePostOption,
   PaginationOption,
@@ -146,5 +146,19 @@ export const searchUserPosts = <T = SearchResponse<OriginalPost>>(
         limit: option.limit ?? 10,
         loadMoreKey: option.loadMoreKey,
       },
+    }),
+  )
+
+/**
+ * 搜索用户动态
+ */
+export const mediaMeta = <T = MediaMeta>(
+  id: string,
+  type: string = 'ORIGINAL_POST',
+  trigger: string = 'auto',
+) =>
+  toResponse<T>(
+    request.post('1.0/mediaMeta/interactive', {
+      searchParams: { id, type, trigger },
     }),
   )

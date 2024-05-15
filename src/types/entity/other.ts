@@ -132,3 +132,7 @@ export interface LoadMoreKey {
   skip?: number
   limit?: number
 }
+
+export interface MediaMeta {
+  url: string
+}

@@ -28,4 +28,9 @@ describe('search should work', () => {
     })
     expect(isSuccess(result)).toBe(true)
   })
+
+  it('searchmediaMeta should work', async () => {
+    const result = await api.posts.mediaMeta('65d86ad912ed2fda685a14a2')
+    expect(isSuccess(result)).toBe(true)
+  })
 })
