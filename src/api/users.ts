@@ -1,6 +1,7 @@
 import { getApiConfig, request, toResponse } from '../request'
-import type { EditProfilePayload } from '../types/options'
-import type { Users } from '../types/api-responses'
+import type { LoadMoreKey, User } from '../types/entity'
+import type { EditProfilePayload, PaginationOption } from '../types/options'
+import type { SearchResponse, Users } from '../types/api-responses'
 
 /**
  * 获取用户信息
@@ -122,5 +123,24 @@ export const editProfile = <T = Users.EditProfileResponse>(
   toResponse<T>(
     request.post('1.0/users/editProfile', {
       json: payload,
+    }),
+  )
+
+/**
+ * 搜索用户
+ *
+ */
+export const searchUses = <T = SearchResponse<User>>(
+  keywords?: string,
+  option: PaginationOption<LoadMoreKey> = {},
+) =>
+  toResponse<T>(
+    request.post('1.0/users/searchUser', {
+      json: {
+        sortBy: 'integrate',
+        keywords: keywords ?? '',
+        limit: option.limit ?? 10,
+        loadMoreKey: option.loadMoreKey,
+      },
     }),
   )

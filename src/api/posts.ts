@@ -1,10 +1,11 @@
 import { request, toResponse } from '../request'
+import type { LoadMoreKey, MediaMeta, OriginalPost } from '../types/entity'
 import type {
   CreatePostOption,
   PaginationOption,
   PostType,
 } from '../types/options'
-import type { Posts } from '../types/api-responses'
+import type { Posts, SearchResponse } from '../types/api-responses'
 
 /**
  * 发送动态
@@ -126,5 +127,38 @@ export const recover = <T = Posts.HideResponse>(type: PostType, id: string) =>
   toResponse<T>(
     request.post(`1.0/${type}/sponsor/recover`, {
       json: { id },
+    }),
+  )
+
+/**
+ * 搜索用户动态
+ *
+ */
+export const searchUserPosts = <T = SearchResponse<OriginalPost>>(
+  keywords?: string,
+  option: PaginationOption<LoadMoreKey> = {},
+) =>
+  toResponse<T>(
+    request.post('1.0/search/userPosts', {
+      json: {
+        sortBy: 'integrate',
+        keywords: keywords ?? '',
+        limit: option.limit ?? 10,
+        loadMoreKey: option.loadMoreKey,
+      },
+    }),
+  )
+
+/**
+ * 搜索用户动态
+ */
+export const mediaMeta = <T = MediaMeta>(
+  id: string,
+  type: string = 'ORIGINAL_POST',
+  trigger: string = 'auto',
+) =>
+  toResponse<T>(
+    request.post('1.0/mediaMeta/interactive', {
+      searchParams: { id, type, trigger },
     }),
   )

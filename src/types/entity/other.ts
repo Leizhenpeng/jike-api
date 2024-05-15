@@ -119,3 +119,20 @@ export interface RecommendPost {
   createdAt: Date
   type: string
 }
+
+export interface SectionInfo {
+  type: string
+  sectionViewType: string
+  title?: string
+  content?: string
+  url?: string
+}
+
+export interface LoadMoreKey {
+  skip?: number
+  limit?: number
+}
+
+export interface MediaMeta {
+  url: string
+}
