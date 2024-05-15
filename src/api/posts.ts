@@ -150,7 +150,7 @@ export const searchUserPosts = <T = SearchResponse<OriginalPost>>(
   )
 
 /**
- * 搜索用户动态
+ * 获取视频地址
  */
 export const mediaMeta = <T = MediaMeta>(
   id: string,
