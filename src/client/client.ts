@@ -7,7 +7,11 @@ import {
 } from '../request'
 import { ApiClient } from '../api-client'
 import { objectPick } from '../utils'
-import { type CreatePostOption, PostType } from '../types/options'
+import {
+  type CreatePostOption,
+  type PaginationOption,
+  PostType,
+} from '../types/options'
 import { isSuccess, throwRequestFailureError } from './utils/response'
 import { resolveAreaCode } from './utils/user'
 import { JikeUser } from './user'
@@ -21,9 +25,12 @@ import { JikePost, JikePostWithDetail } from './post'
 import type { Api } from '../api'
 import type {
   FollowingUpdate,
+  LoadMoreKey,
   Notification,
+  OriginalPost,
   PersonalUpdate,
   Post,
+  User,
 } from '../types/entity'
 import type { BeforeRetryState } from 'ky/distribution/types/hooks'
 import type { FollowingUpdatesMoreKey, JikeClientJSON } from './types'
@@ -381,5 +388,84 @@ export class JikeClient extends EventEmitter<EventMap> {
   static deserialize(data: string): JikeClient {
     const json: JikeClientJSON = JSON.parse(data)
     return this.fromJSON(json)
+  }
+
+  /**
+   * 搜索动态
+   * @param keywords 关键字
+   * @param option
+   * @returns
+   */
+  searchPost(
+    keywords: string,
+    option: PaginatedOption<OriginalPost, never, number> = {},
+  ) {
+    const fetcher: PaginatedFetcher<OriginalPost, number> = async (lastKey) => {
+      const params: PaginationOption<LoadMoreKey> = {
+        limit: 10,
+      }
+      if (lastKey) {
+        params.loadMoreKey = {
+          skip: lastKey,
+        }
+      }
+      const result = await this.apiClient.posts.searchUserPosts(
+        keywords,
+        params,
+      )
+      if (!isSuccess(result))
+        throwRequestFailureError(result, '获取点赞用户列表')
+
+      const newKey = result.data.loadMoreKey?.skip
+      return [newKey, result.data.data]
+    }
+
+    return fetchPaginated(
+      fetcher,
+      (item, data) => ({ total: data.length + 1 }),
+      option,
+    )
+  }
+
+  /**
+   * 搜索用户
+   * @param keywords 关键字
+   * @param option
+   * @returns
+   */
+  searchUsers(
+    keywords: string,
+    option: PaginatedOption<User, never, number> = {},
+  ) {
+    const fetcher: PaginatedFetcher<User, number> = async (lastKey) => {
+      const params: PaginationOption<LoadMoreKey> = {
+        limit: 10,
+      }
+      if (lastKey) {
+        params.loadMoreKey = {
+          skip: lastKey,
+        }
+      }
+      const result = await this.apiClient.users.searchUses(keywords, params)
+      if (!isSuccess(result)) throwRequestFailureError(result, '搜索用户列表')
+
+      const newKey = result.data.loadMoreKey?.skip
+      return [newKey, result.data.data]
+    }
+
+    return fetchPaginated(
+      fetcher,
+      (item, data) => ({ total: data.length + 1 }),
+      option,
+    )
+  }
+  /**
+   * 获取视频信息
+   * @returns 获取视频url
+   */
+  async mediaMeta(postId: string) {
+    const result = await this.apiClient.posts.mediaMeta(postId)
+    if (!isSuccess(result)) throwRequestFailureError(result, '获取视频信息')
+    return result.data.url
   }
 }
