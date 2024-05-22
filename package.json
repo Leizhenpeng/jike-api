@@ -1,6 +1,6 @@
 {
   "name": "jike-api",
-  "version": "0.27.2",
+  "version": "0.27.3",
   "description": "Jike api for browser - compatible with browser plugins",
   "type": "module",
   "keywords": [
